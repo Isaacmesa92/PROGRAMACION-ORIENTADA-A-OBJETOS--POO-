@@ -1,36 +1,53 @@
 class Persona:
-    # Constructor de la clase
-    #   __init__ es el método especial que se ejecuta al crear el objeto
-    def __init__(self, nombre: str, apellido: str, documento: str, anio_nacimiento: int):
-        # 'self' es una referencia al objeto que se está creando (equivalente a 'this' en Java).
-        # Al asignar a self.<atributo>, estamos creando y guardando esos datos dentro del objeto.
+    """
+    Modelo de Persona con:
+    - nombre, apellidos
+    - número de documento de identidad
+    - año de nacimiento
+    - país de nacimiento (NUEVO)
+    - género ('H' o 'M') (NUEVO)
+    """
+    def __init__(
+        self,
+        nombre: str,
+        apellidos: str,
+        numero_documento_identidad: str,
+        anio_nacimiento: int,
+        pais_nacimiento: str,
+        genero: str,  # 'H' (hombre) o 'M' (mujer)
+    ):
+        # 'self' en Python equivale a 'this' en Java
         self.nombre = nombre
-        self.apellido = apellido
-        self.documento = documento
-        self.anio_nacimiento = anio_nacimiento
+        self.apellidos = apellidos
+        self.numero_documento_identidad = numero_documento_identidad
+        self.anio_nacimiento = int(anio_nacimiento)
+        self.pais_nacimiento = pais_nacimiento
 
-    # Método de instancia que imprime los valores de los atributos.
-    def imprimir_datos(self) -> None:
-        # El operador punto (.) se usa igual que en Java para acceder
-        # a atributos y métodos del objeto: objeto.atributo / objeto.metodo()
-        print(f"Nombre: {self.nombre}")
-        print(f"Apellido: {self.apellido}")
-        print(f"Documento: {self.documento}")
-        print(f"Año de nacimiento: {self.anio_nacimiento}")
+        genero = (genero or "").strip().upper()
+        if genero not in ("H", "M"):
+            raise ValueError("El género debe ser 'H' o 'M'.")
+        self.genero = genero
 
+    def imprimir(self) -> None:
+        print(f"Nombre = {self.nombre}")
+        print(f"Apellidos = {self.apellidos}")
+        print(f"Número de documento de identidad = {self.numero_documento_identidad}")
+        print(f"Año de nacimiento = {self.anio_nacimiento}")
+        print(f"País de nacimiento = {self.pais_nacimiento}")
+        print(f"Género = {self.genero}")
+        print()  # línea en blanco
 
-
+# Demostracion
 if __name__ == "__main__":
-    # Instanciación de objetos:
-    #   Llamamos al constructor Persona(...) con los valores necesarios.
-    #   En Java sería: Persona p = nueva Persona(...);
-    persona1 = Persona("Ana", "Pérez", "CC 12345678", 1995)
-    persona2 = Persona("Luis", "García", "CC 87654321", 1990)
-
-    
-    print("Persona 1:")
-    # Llamamos al método que imprime los atributos
-    persona1.imprimir_datos()
-
-    print("\n Persona 2:")
-    persona2.imprimir_datos()
+    p1 = Persona(
+        "Pedro", "Pérez", "1053121010", 1998,
+        pais_nacimiento="Colombia",
+        genero="H"
+    )
+    p2 = Persona(
+        "Luisa", "León", "1053223344", 2001,
+        pais_nacimiento="Perú",
+        genero="M"
+    )
+    p1.imprimir()
+    p2.imprimir()
